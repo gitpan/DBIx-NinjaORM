@@ -1,5 +1,6 @@
 language: perl
 perl:
+  - "5.19"
   - "5.16"
   - "5.14"
 before_script:
@@ -15,3 +16,7 @@ env:
   - NINJAORM_DATABASE=''
   - NINJAORM_DATABASE='DBI:mysql:database=ninja_orm;host=127.0.0.1|root|'
   - NINJAORM_DATABASE='DBI:Pg:dbname=ninja_orm;host=127.0.0.1|postgres|'
+before_install:
+  cpanm -n Devel::Cover::Report::Coveralls
+script:
+  perl Build.PL && ./Build build && cover -test -report coveralls
